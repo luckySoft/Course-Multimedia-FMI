@@ -25,55 +25,54 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
     @GetMapping(path = "", produces = "application/json")
-    public ResponseEntity<List<User>> getUsers(@RequestParam(name = "name", required = false) String name) throws IOException {
+    public ResponseEntity<List<User>> getUsers(@RequestParam(name = "name", required = false) String name) {
         logger.info("GET /users request received");
 
         try {
             return StringUtils.isEmpty(name) ?
-                    new ResponseEntity<>(userService.getUsers(), getHeaders(), HttpStatus.OK) :
-                    new ResponseEntity<>(userService.getUserByName(name), getHeaders(), HttpStatus.OK);
-        } catch(Exception e) {
+                    new ResponseEntity<>(userService.getUsers(), HttpStatus.OK) :
+                    new ResponseEntity<>(userService.getUserByName(name), HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<User> getUsersById(@PathVariable("id") String id) throws IOException {
+    public ResponseEntity<User> getUsersById(@PathVariable("id") String id) {
         logger.info("GET /users/id request received");
         try {
-            return new ResponseEntity<>(userService.getUser(id), getHeaders(), HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(getHeaders(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping(path = "", consumes = "application/json")
-    public ResponseEntity<User> addUser(User user) throws IOException {
+    @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+    @PostMapping(path = "", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         logger.info("POST /users request received");
         try {
             User newUser = userService.addUser(user);
-            return new ResponseEntity<>(newUser, getHeaders(), HttpStatus.CREATED);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping(path = "", consumes = "application/json")
-    public ResponseEntity<User> updateUser(User user) throws IOException {
+    @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+    @PutMapping(path = "", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         logger.info("PUT /users request received");
         try {
-            return new ResponseEntity<>(userService.updateUser(user), getHeaders(), HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(getHeaders(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private HttpHeaders getHeaders() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
-        return httpHeaders;
-    }
 }

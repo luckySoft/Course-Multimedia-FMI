@@ -24,6 +24,7 @@ public class SkillEntity implements Serializable {
     @Column()
     private String image;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
     public String getSoftware() {

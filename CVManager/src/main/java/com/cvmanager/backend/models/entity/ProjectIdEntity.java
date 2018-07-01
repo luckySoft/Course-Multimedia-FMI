@@ -15,7 +15,8 @@ public class ProjectIdEntity  implements Serializable {
     private Long id;
     @Column()
     private String projectId;
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "experience_id", nullable = false)
     private ExperienceEntity experience;
 
     public Long getId() {

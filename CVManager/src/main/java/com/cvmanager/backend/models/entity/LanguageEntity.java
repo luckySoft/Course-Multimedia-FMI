@@ -19,6 +19,7 @@ public class LanguageEntity implements Serializable {
     @Column()
     private String level;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
     public Long getId() {

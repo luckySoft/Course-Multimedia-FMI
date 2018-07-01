@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -105,6 +106,9 @@ public class User {
 
     @JsonProperty("mainProfiles")
     public List<Avatar> getMainProfiles() {
+        if (mainProfiles == null) {
+            mainProfiles = new ArrayList<>();
+        }
         return mainProfiles;
     }
 
@@ -205,6 +209,9 @@ public class User {
 
     @JsonProperty("favTechnologies")
     public List<String> getFavTechnologies() {
+        if (favTechnologies == null) {
+            favTechnologies = new ArrayList<>();
+        }
         return favTechnologies;
     }
 
@@ -215,6 +222,9 @@ public class User {
 
     @JsonProperty("languages")
     public List<Language> getLanguages() {
+        if (languages == null) {
+            languages = new ArrayList<>();
+        }
         return languages;
     }
 
@@ -225,6 +235,9 @@ public class User {
 
     @JsonProperty("experience")
     public List<Experience> getExperience() {
+        if (experience == null) {
+            experience = new ArrayList<>();
+        }
         return experience;
     }
 
@@ -235,6 +248,9 @@ public class User {
 
     @JsonProperty("education")
     public List<Education> getEducation() {
+        if (education == null) {
+            education = new ArrayList<>();
+        }
         return education;
     }
 
@@ -245,6 +261,9 @@ public class User {
 
     @JsonProperty("socialSkills")
     public List<SocialSkill> getSocialSkills() {
+        if (socialSkills == null) {
+            socialSkills = new ArrayList<>();
+        }
         return socialSkills;
     }
 
@@ -255,6 +274,9 @@ public class User {
 
     @JsonProperty("devSkills")
     public List<Skill> getDevSkills() {
+        if (devSkills == null) {
+            devSkills = new ArrayList<>();
+        }
         return devSkills;
     }
 

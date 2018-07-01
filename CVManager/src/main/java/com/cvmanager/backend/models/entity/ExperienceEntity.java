@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "education")
+@Table(name = "experience")
 public class ExperienceEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,8 +16,10 @@ public class ExperienceEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    private PeriodEntity periodEntity;
+    @Column()
+    private String fromDate;
+    @Column()
+    private String toDate;
     @Column()
     private String job;
     @Column()
@@ -25,28 +27,37 @@ public class ExperienceEntity implements Serializable {
     @Column()
     private String address;
     @Column()
-    private String url;
+    private String expUrl;
     @Column()
     private String type;
 
-    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "experience")
     private List<ResponsibilityEntity> responsibilities = null;
 
-    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "experience")
     private List<TechnologyEntity> technologies = null;
 
-    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "experience")
     private List<ProjectIdEntity> projectIds = null;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
-    public PeriodEntity getPeriodEntity() {
-        return periodEntity;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setPeriodEntity(PeriodEntity periodEntity) {
-        this.periodEntity = periodEntity;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public String getJob() {
@@ -73,12 +84,12 @@ public class ExperienceEntity implements Serializable {
         this.address = address;
     }
 
-    public String getUrl() {
-        return url;
+    public String getExpUrl() {
+        return expUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setExpUrl(String expUrl) {
+        this.expUrl = expUrl;
     }
 
     public String getType() {

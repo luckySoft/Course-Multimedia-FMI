@@ -9,7 +9,7 @@ import { Language } from './../models/language';
 import { Location } from '@angular/common';
 import { Observable, of, Subscription } from 'rxjs';
 import { LANGUAGE_LEVELS } from './../models/mock-languages';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileItem } from 'ng2-file-upload';
 import { UserService } from './../user.service';
 import { Skill } from '../models/skill';
 import { THEMES } from '../models/themes';
@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   constructor(private location: Location,
     private userService: UserService,
-    private alert: AlertService,
+    private alertService: AlertService,
     private formBuilder: FormBuilder,
     private router: Router) {
 
@@ -251,9 +251,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     if ((value || '').trim()) {
       let expArray = this.profileForm.get('experience') as FormArray;
       let technologies = expArray.controls[expIndex].get("technologies") as FormArray;
-      technologies.push(this.formBuilder.group({
-        tech: value
-      }))
+      technologies.push(this.formBuilder.array([value]))
     }
     // Reset the input value
     if (input) {
@@ -276,9 +274,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       let id = videoUrl[1];
       let expArray = this.profileForm.get('experience') as FormArray;
       let projectIds = expArray.controls[expIndex].get("projectIds") as FormArray;
-      projectIds.push(this.formBuilder.group({
-        projectId: id
-      }));
+      projectIds.push(this.formBuilder.array([id]));
     }
     // Reset the input value
     if (input) {
@@ -292,10 +288,10 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     projectIds.removeAt(idIndex);
   }
 
-  addImage(image: any) {
+  addImage(image: FileItem) {
     let avatar = new Avatar();
     avatar.main = false;
-    avatar.img = image;
+    avatar.img = 'assets/home/' + image.file.name;
     this.avatars$.subscribe(avatars => avatars.push(avatar));
   }
 
@@ -332,6 +328,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     // stop here if form is invalid
     if (this.profileForm.invalid) {
+      this.alertService.error("Something went wrong! Required fields or sections are missing!");
       return;
     }
     

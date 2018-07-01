@@ -16,6 +16,7 @@ public class FavTechnologyEntity implements Serializable {
     @Column()
     private String favTechnology;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
     public Long getId() {

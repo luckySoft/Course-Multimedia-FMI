@@ -16,8 +16,11 @@ public class EducationEntity implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private PeriodEntity periodEntity;
+    @Column()
+    private String fromDate;
+
+    @Column()
+    private String toDate;
 
     @Column()
     private String specialty;
@@ -29,9 +32,10 @@ public class EducationEntity implements Serializable {
     private String address;
 
     @Column()
-    private String url;
+    private String eduUrl;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
     public Long getId() {
@@ -41,12 +45,21 @@ public class EducationEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public PeriodEntity getPeriodEntity() {
-        return periodEntity;
+
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setPeriodEntity(PeriodEntity periodEntity) {
-        this.periodEntity = periodEntity;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public String getSpecialty() {
@@ -73,12 +86,12 @@ public class EducationEntity implements Serializable {
         this.address = address;
     }
 
-    public String getUrl() {
-        return url;
+    public String getEduUrl() {
+        return eduUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setEduUrl(String eduUrl) {
+        this.eduUrl = eduUrl;
     }
 
     public UserEntity getUser() {

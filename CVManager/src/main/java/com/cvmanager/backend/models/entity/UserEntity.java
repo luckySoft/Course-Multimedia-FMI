@@ -19,7 +19,7 @@ public class UserEntity implements Serializable {
     private String name;
     @Column()
     private String lastName;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<AvatarEntity> mainProfiles = null;
     @Column()
     private String description;
@@ -40,22 +40,22 @@ public class UserEntity implements Serializable {
     @Column()
     private String linkedIn;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<FavTechnologyEntity> favTechnologies = null;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<LanguageEntity> languageEntities = null;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<ExperienceEntity> experienceEntity = null;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<EducationEntity> educationEntity = null;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<SocialSkillEntity> socialSkillEntities = null;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<SkillEntity> skillEntities = null;
 
     public Long getId() {

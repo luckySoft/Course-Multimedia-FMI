@@ -20,6 +20,14 @@ public class Period {
     @JsonProperty("to")
     private String to;
 
+    public Period() {
+    }
+
+    public Period(String from, String to) {
+        this.from = from;
+        this.to = to;
+    }
+
     @JsonProperty("from")
     public String getFrom() {
         return from;

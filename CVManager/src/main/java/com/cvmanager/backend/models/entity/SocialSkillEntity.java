@@ -21,6 +21,7 @@ public class SocialSkillEntity implements Serializable {
     @Column()
     private Integer percentage;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private UserEntity user;
 
     public String getTitle() {
