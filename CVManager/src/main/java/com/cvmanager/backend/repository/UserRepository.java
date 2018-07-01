@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
-    List<UserEntity> findByName(String name);
+    List<UserEntity> findByNameContaining(String name);
 }

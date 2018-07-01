@@ -77,7 +77,7 @@ public class UserService {
     }
 
     public List<User> getUserByName(String name) {
-        List<UserEntity> userEntities = userRepository.findByName(name);
+        List<UserEntity> userEntities = userRepository.findByNameContaining(name);
         return userEntities.stream().map(this::copy).collect(Collectors.toList());
     }
 
